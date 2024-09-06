@@ -8,8 +8,7 @@ const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackb
 
 function search(str) {
 	let results = [];
-	results = fruit.filter((val) => (val.toLowerCase()).indexOf(str) !== 1);
-	console.log(results);
+	results = fruit.filter((val) => val.toLowerCase().indexOf(str.toLowerCase()) !== -1);
 	return results;
 	
 }
@@ -22,8 +21,8 @@ function showSuggestions(results, inputVal) {
 	suggestions.innerHTML = '';
 	results.slice(0,5).forEach((val) => {
 		let newLi = document.createElement('li');
-		// newLi.innerHTML = val.replace(inputVal, `<b>${inputVal}</b>`);
-		newLi.innerText = val;
+		let replacement = [val.toLowerCase().indexOf(inputVal.toLowerCase()), val.toLowerCase().indexOf(inputVal.toLowerCase()) + inputVal.length];
+		newLi.innerHTML = val.replace(val.slice(replacement[0], replacement[1]), `<b>${val.slice(replacement[0], replacement[1])}</b>`);
 		newLi.classList.add('ul');
 		suggestions.append(newLi);
 		});
